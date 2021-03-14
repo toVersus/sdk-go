@@ -24,6 +24,8 @@
 
 package log
 
+import "log"
+
 // WithLogger is an interface that prepend every log entry with keyvals.
 type WithLogger interface {
 	With(keyvals ...interface{}) Logger
@@ -47,7 +49,8 @@ func newWithLogger(logger Logger, keyvals ...interface{}) *withLogger {
 	return &withLogger{logger: logger, keyvals: keyvals}
 }
 
-func (l *withLogger) prependKeyvals(keyvals []interface{}) []interface{} {
+func (l *withLogger) prependKeyvals(keyvals ...interface{}) []interface{} {
+	log.Printf("prependKeyvals: %#v\n", keyvals)
 	return append(l.keyvals, keyvals...)
 }
 
